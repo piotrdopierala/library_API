@@ -13,6 +13,8 @@ public class App
     {
         SpringApplication.run(App.class,args);
 
+
+
 //        Configuration cfg = new Configuration();
 //        cfg.configure("hibernate.cfg.xml");
 //        cfg.addAnnotatedClass(Author.class);
@@ -24,7 +26,7 @@ public class App
 //        SessionFactory sessionFactory = cfg.buildSessionFactory();
 //        Session currentSession = sessionFactory.getCurrentSession();
 //
-//        Collection<BookCopy> sampleBooks = DBBookCopyRepository.createSampleBooks();
+//        Collection<BookCopy> sampleBooks = DBBookCopyRepository.generateSampleBooks();
 //
 //        currentSession.beginTransaction();
 //        sampleBooks.forEach(book->currentSession.persist(book));

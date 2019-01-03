@@ -24,4 +24,9 @@ public class BookCopy {
 
     public BookCopy() {
     }
+
+    @Override
+    public String toString() {
+        return "BookCopy title:"+this.bookData.getTitle()+", by:"+this.bookData.getAuthors();
+    }
 }
