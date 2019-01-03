@@ -1,13 +1,9 @@
 package pl.dopierala;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import pl.dopierala.domain.*;
-import pl.dopierala.domain.Repository.DBBookCopyRepository;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Collection;
-
+@SpringBootApplication
 public class App
 {
 
@@ -15,24 +11,24 @@ public class App
 
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        SpringApplication.run(App.class,args);
 
-        Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        cfg.addAnnotatedClass(Author.class);
-        cfg.addAnnotatedClass(BookDefinition.class);
-        cfg.addAnnotatedClass(BookGenere.class);
-        cfg.addAnnotatedClass(BookCopy.class);
-        cfg.addAnnotatedClass(LibraryUser.class);
-
-        SessionFactory sessionFactory = cfg.buildSessionFactory();
-        Session currentSession = sessionFactory.getCurrentSession();
-
-        Collection<BookCopy> sampleBooks = DBBookCopyRepository.createSampleBooks();
-
-        currentSession.beginTransaction();
-        sampleBooks.forEach(book->currentSession.persist(book));
-        //currentSession.persist(sampleBooks);
-        currentSession.getTransaction().commit();
+//        Configuration cfg = new Configuration();
+//        cfg.configure("hibernate.cfg.xml");
+//        cfg.addAnnotatedClass(Author.class);
+//        cfg.addAnnotatedClass(BookDefinition.class);
+//        cfg.addAnnotatedClass(BookGenere.class);
+//        cfg.addAnnotatedClass(BookCopy.class);
+//        cfg.addAnnotatedClass(LibraryUser.class);
+//
+//        SessionFactory sessionFactory = cfg.buildSessionFactory();
+//        Session currentSession = sessionFactory.getCurrentSession();
+//
+//        Collection<BookCopy> sampleBooks = DBBookCopyRepository.createSampleBooks();
+//
+//        currentSession.beginTransaction();
+//        sampleBooks.forEach(book->currentSession.persist(book));
+//        //currentSession.persist(sampleBooks);
+//        currentSession.getTransaction().commit();
     }
 }

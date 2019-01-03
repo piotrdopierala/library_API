@@ -10,7 +10,8 @@
         <property name="current_session_context_class">thread</property>
 
         <property name = "hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
+            <!--com.mysql.jdbc.Driver-->
+            com.mysql.cj.jdbc.Driver
         </property>
 
         <property name = "hibernate.connection.url">

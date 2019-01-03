@@ -38,6 +38,6 @@ public class DBBookCopyRepository implements BookCopyRepository {
         for (int i = 0; i < 10; i++) {
             booksOnShelf.add(new BookCopy(futuRE));
         }
-    return booksOnShelf;
+        return booksOnShelf;
     }
 }
