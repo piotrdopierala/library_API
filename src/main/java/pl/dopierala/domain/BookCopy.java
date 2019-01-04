@@ -29,4 +29,47 @@ public class BookCopy {
     public String toString() {
         return "BookCopy title:"+this.bookData.getTitle()+", by:"+this.bookData.getAuthors();
     }
+
+    public BookDefinition getBookData() {
+        return bookData;
+    }
+
+    public LocalDateTime getDateAddedToLibrary() {
+        return dateAddedToLibrary;
+    }
+
+    public String getPhysicalStateDescription() {
+        return physicalStateDescription;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public LocalDateTime getBorowedDate() {
+        return borowedDate;
+    }
+
+    public LocalDateTime getShouldReturnDate() {
+        return shouldReturnDate;
+    }
+
+    public void setPhysicalStateDescription(String physicalStateDescription) {
+        this.physicalStateDescription = physicalStateDescription;
+    }
+
+    public BookCopy setAvailable(boolean available) {
+        isAvailable = available;
+        return this;
+    }
+
+    public BookCopy setBorowedDate(LocalDateTime borowedDate) {
+        this.borowedDate = borowedDate;
+        return this;
+    }
+
+    public BookCopy setShouldReturnDate(LocalDateTime shouldReturnDate) {
+        this.shouldReturnDate = shouldReturnDate;
+        return this;
+    }
 }
