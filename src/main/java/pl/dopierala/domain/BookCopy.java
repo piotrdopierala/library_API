@@ -1,4 +1,6 @@
 package pl.dopierala.domain;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,7 +10,8 @@ public class BookCopy {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     @ManyToOne(cascade=CascadeType.PERSIST)
-    private BookDefinition bookData;
+    @JsonManagedReference
+    private BookDefinition bookDefinition;
     private LocalDateTime dateAddedToLibrary;
     private String physicalStateDescription;
     private boolean isAvailable;
@@ -16,7 +19,7 @@ public class BookCopy {
     private LocalDateTime shouldReturnDate;
 
     public BookCopy(BookDefinition basicData) {
-        this.bookData = basicData;
+        this.bookDefinition = basicData;
         basicData.addCopy(this);
         this.dateAddedToLibrary=LocalDateTime.now();
         this.isAvailable=true;
@@ -27,11 +30,11 @@ public class BookCopy {
 
     @Override
     public String toString() {
-        return "BookCopy title:"+this.bookData.getTitle()+", by:"+this.bookData.getAuthors();
+        return "BookCopy title:"+this.bookDefinition.getTitle()+", by:"+this.bookDefinition.getAuthors();
     }
 
-    public BookDefinition getBookData() {
-        return bookData;
+    public BookDefinition getBookDefinition() {
+        return bookDefinition;
     }
 
     public LocalDateTime getDateAddedToLibrary() {
@@ -71,5 +74,9 @@ public class BookCopy {
     public BookCopy setShouldReturnDate(LocalDateTime shouldReturnDate) {
         this.shouldReturnDate = shouldReturnDate;
         return this;
+    }
+
+    public long getId() {
+        return id;
     }
 }

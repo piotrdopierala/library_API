@@ -9,9 +9,9 @@ import pl.dopierala.domain.BookDefinition;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 public class DBBookCopyRepository implements BookCopyRepository {
@@ -123,13 +123,13 @@ public class DBBookCopyRepository implements BookCopyRepository {
             //count specific book
             switch (availability) {
                 case ALL:
-                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookData=:bookDataToCount";
+                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookDefinition=:bookDataToCount";
                     break;
                 case IS_AVAILABLE:
-                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookData=:bookDataToCount AND isAvailable=true";
+                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookDefinition=:bookDataToCount AND isAvailable=true";
                     break;
                 case NOT_AVAILABLE_BORROWED:
-                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookData=:bookDataToCount AND isAvailable=false";
+                    queryString = "SELECT COUNT(1) FROM BookCopy WHERE bookDefinition=:bookDataToCount AND isAvailable=false";
                     break;
             }
             query = em.createQuery(queryString).setParameter("bookDataToCount", bookDefinitionToCount);
@@ -137,5 +137,31 @@ public class DBBookCopyRepository implements BookCopyRepository {
 
         int singleResult = ((Long)query.getSingleResult()).intValue();
         return singleResult;
+    }
+
+    @Override
+    @Transactional
+    public void addBookCopy(BookCopy bookCopyToAdd){
+        em.persist(bookCopyToAdd);
+    }
+
+    @Override
+    @Transactional
+    public void addBookDefinition(BookDefinition bookDefinitionToAdd){
+        em.persist(bookDefinitionToAdd);
+    }
+
+    @Override
+    @Transactional
+    public BookCopy getBookCopyById(Integer id){
+        BookCopy bookCopy = em.createQuery("FROM BookCopy WHERE id=:id", BookCopy.class).setParameter("id", Long.valueOf(id)).getSingleResult();
+        return bookCopy;
+    }
+
+    @Override
+    @Transactional
+    public BookDefinition getBookDefinitionById(Integer id){
+        BookDefinition bookDefinition = em.createQuery("FROM BookDefinition WHERE id=:id", BookDefinition.class).setParameter("id",Long.valueOf(id)).getSingleResult();
+        return  bookDefinition;
     }
 }

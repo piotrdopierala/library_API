@@ -2,8 +2,10 @@ package pl.dopierala;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
+@EnableWebMvc
 public class App
 {
 
@@ -13,24 +15,5 @@ public class App
     {
         SpringApplication.run(App.class,args);
 
-
-
-//        Configuration cfg = new Configuration();
-//        cfg.configure("hibernate.cfg.xml");
-//        cfg.addAnnotatedClass(Author.class);
-//        cfg.addAnnotatedClass(BookDefinition.class);
-//        cfg.addAnnotatedClass(BookGenere.class);
-//        cfg.addAnnotatedClass(BookCopy.class);
-//        cfg.addAnnotatedClass(LibraryUser.class);
-//
-//        SessionFactory sessionFactory = cfg.buildSessionFactory();
-//        Session currentSession = sessionFactory.getCurrentSession();
-//
-//        Collection<BookCopy> sampleBooks = DBBookCopyRepository.generateSampleBooks();
-//
-//        currentSession.beginTransaction();
-//        sampleBooks.forEach(book->currentSession.persist(book));
-//        //currentSession.persist(sampleBooks);
-//        currentSession.getTransaction().commit();
     }
 }

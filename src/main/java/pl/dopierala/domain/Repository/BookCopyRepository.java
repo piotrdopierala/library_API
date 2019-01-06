@@ -19,4 +19,16 @@ public interface BookCopyRepository {
     Collection<BookCopy> generateSampleBooks();
 
     int countBookCopies(BookDefinition bookDefinitionToCount, BookCopyAvailibility availability);
+
+    @Transactional
+    void addBookCopy(BookCopy bookCopyToAdd);
+
+    @Transactional
+    void addBookDefinition(BookDefinition bookDefinitionToAdd);
+
+    @Transactional
+    BookCopy getBookCopyById(Integer id);
+
+    @Transactional
+    BookDefinition getBookDefinitionById(Integer id);
 }

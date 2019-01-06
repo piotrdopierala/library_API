@@ -1,5 +1,7 @@
 package pl.dopierala.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -13,7 +15,8 @@ public class BookDefinition {
     private List<Author> authors;
     @ManyToOne(cascade=CascadeType.PERSIST)
     private BookGenere genere;
-    @OneToMany(mappedBy = "bookData", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "bookDefinition", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JsonBackReference
     private Collection<BookCopy> copies;
 
     public BookDefinition(String title, Author... author) {
@@ -62,6 +65,10 @@ public class BookDefinition {
 
     public Collection<BookCopy> getCopies() {
         return copies;
+    }
+
+    public long getId() {
+        return id;
     }
 }
 

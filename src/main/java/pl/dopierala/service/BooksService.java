@@ -19,6 +19,13 @@ public class BooksService {
         return allBooks;
     }
 
+    public BookCopy getBookCopyById(Integer id){
+        return bookCopyRepo.getBookCopyById(id);
+    }
+    public BookDefinition getBookDefinitionById(Integer id){
+        return bookCopyRepo.getBookDefinitionById(id);
+    }
+
     public Collection<BookDefinition> getAllBookDefinitions(){
         Collection<BookDefinition> allBookDefinitions = bookCopyRepo.getAllBooksDefinitions();
         return allBookDefinitions;
