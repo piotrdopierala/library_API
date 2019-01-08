@@ -9,6 +9,8 @@ import pl.dopierala.domain.BookDefinition;
 import pl.dopierala.service.BooksService;
 
 import java.io.*;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -25,8 +27,15 @@ public class BookController {
     @RequestMapping(value = "/Book/{id}",method = RequestMethod.GET)
     @ResponseBody
     public BookDefinition getBookDefinition(@PathVariable("id") Integer id){
-        BookDefinition bookCopyById = bookService.getBookDefinitionById(id);
-        return bookCopyById;
+        BookDefinition bookDefinitionById = bookService.getBookDefinitionById(id);
+        return bookDefinitionById;
+    }
+
+    @RequestMapping(value = "/Books",method = RequestMethod.GET)
+    @ResponseBody
+    public List<BookDefinition> getBooksDefinitions(){
+        List<BookDefinition> booksDefinitions = bookService.getAllBookDefinitions();
+        return booksDefinitions;
     }
 
     @RequestMapping(value = "/home")

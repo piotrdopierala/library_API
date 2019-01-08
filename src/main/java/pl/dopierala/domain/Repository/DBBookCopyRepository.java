@@ -9,9 +9,9 @@ import pl.dopierala.domain.BookDefinition;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class DBBookCopyRepository implements BookCopyRepository {
@@ -54,7 +54,7 @@ public class DBBookCopyRepository implements BookCopyRepository {
 
     @Override
     @Transactional
-    public Collection<BookDefinition> getAllBooksDefinitions(){
+    public List<BookDefinition> getAllBooksDefinitions(){
         String getAllQuery = "FROM BookDefinition";
         TypedQuery<BookDefinition> query = em.createQuery(getAllQuery, BookDefinition.class);
         return query.getResultList();

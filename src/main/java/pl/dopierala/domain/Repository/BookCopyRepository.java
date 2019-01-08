@@ -5,6 +5,7 @@ import pl.dopierala.domain.BookCopy;
 import pl.dopierala.domain.BookDefinition;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface BookCopyRepository {
 
@@ -12,7 +13,7 @@ public interface BookCopyRepository {
     Collection<BookCopy> getAllBooksCopies(BookCopyAvailibility availability);
 
     @Transactional
-    Collection<BookDefinition> getAllBooksDefinitions();
+    List<BookDefinition> getAllBooksDefinitions();
 
     void saveAllBooks(Collection<BookCopy> bookCopies);
 

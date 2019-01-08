@@ -8,6 +8,7 @@ import pl.dopierala.domain.Repository.BookCopyAvailibility;
 import pl.dopierala.domain.Repository.BookCopyRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class BooksService {
@@ -26,8 +27,8 @@ public class BooksService {
         return bookCopyRepo.getBookDefinitionById(id);
     }
 
-    public Collection<BookDefinition> getAllBookDefinitions(){
-        Collection<BookDefinition> allBookDefinitions = bookCopyRepo.getAllBooksDefinitions();
+    public List<BookDefinition> getAllBookDefinitions(){
+        List<BookDefinition> allBookDefinitions = bookCopyRepo.getAllBooksDefinitions();
         return allBookDefinitions;
     }
 
