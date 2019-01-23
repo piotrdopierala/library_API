@@ -9,6 +9,9 @@ import pl.dopierala.domain.Gender;
 import pl.dopierala.domain.LibraryUser;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class CustomUserDeserializer extends StdDeserializer<LibraryUser> {
 
@@ -18,27 +21,34 @@ public class CustomUserDeserializer extends StdDeserializer<LibraryUser> {
 
     @Override
     public LibraryUser deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        LibraryUser ret = new LibraryUser();
 
         JsonNode node = jp.getCodec().readTree(jp);
-        String firstName = node.get(0).get("firstName").textValue();
-        ret.setFirstName(firstName);
-        String lastName = node.get(0).get("lastName").textValue();
-        ret.setLastName(lastName);
-        String email = node.get(0).get("email").textValue();
-        ret.setEmail(email);
-        String gender = node.get(0).get("gender").textValue();
+
+
+        LibraryUser usr = new LibraryUser();
+
+
+        String firstName = node.get("firstName").textValue();
+        usr.setFirstName(firstName);
+        String lastName = node.get("lastName").textValue();
+        usr.setLastName(lastName);
+        String email = node.get("email").textValue();
+        usr.setEmail(email);
+        String gender = node.get("gender").textValue();
         switch (gender.toUpperCase()) {
             case "MALE":
-                ret.setGender(Gender.MALE);
+                usr.setGender(Gender.MALE);
                 break;
             case "FEMALE":
-                ret.setGender(Gender.FEMALE);
+                usr.setGender(Gender.FEMALE);
                 break;
             default:
-                ret.setGender(Gender.UNKNOWN);
+                usr.setGender(Gender.UNKNOWN);
         }
+        usr.setBirthDate(LocalDate.parse(node.get("birthDate").textValue(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        usr.setCountryCode(node.get("country").textValue());
 
-        return ret;
+
+        return usr;
     }
 }

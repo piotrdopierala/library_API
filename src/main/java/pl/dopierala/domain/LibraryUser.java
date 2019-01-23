@@ -3,6 +3,7 @@ package pl.dopierala.domain;
 import sun.reflect.generics.repository.GenericDeclRepository;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class LibraryUser {
@@ -15,12 +16,13 @@ public class LibraryUser {
     private String lastName;
     private String email;
     private Gender gender;
-    private Integer age;
+    private LocalDate birthDate;
+    private String countryCode;
 
-    public LibraryUser(String firstName, String lastName, Integer age) {
+    public LibraryUser(String firstName, String lastName, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.birthDate = birthDate;
     }
 
     public LibraryUser() {
@@ -42,12 +44,20 @@ public class LibraryUser {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public long getId() {

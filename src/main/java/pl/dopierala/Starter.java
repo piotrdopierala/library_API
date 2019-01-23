@@ -24,6 +24,9 @@ public class Starter implements CommandLineRunner {
         //System.out.println("Generating sample books...");
         //booksService.createSampleBooks();
 
+        // load sample user data from JSON if database is empty
+
+
 
         Collection<BookCopy> allBookCopies = booksService.getAllBookCopies(BookCopyAvailibility.ALL);
         allBookCopies.forEach(System.out::println);
