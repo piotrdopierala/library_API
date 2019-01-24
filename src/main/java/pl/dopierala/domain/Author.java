@@ -3,6 +3,8 @@ package pl.dopierala.domain;
 import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Author {
@@ -15,7 +17,7 @@ public class Author {
     private String lastName;
 
     public Author(String firstName, String lastName) {
-        this.firstName = firstName;
+        this.firstName =firstName;
         this.lastName = lastName;
     }
 
@@ -27,7 +29,7 @@ public class Author {
         return "Author{" + firstName +" "+ lastName +'}';
     }
 
-    public String getFirstName() {
+    public String getFirstNames() {
         return firstName;
     }
 

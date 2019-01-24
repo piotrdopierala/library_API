@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import pl.dopierala.domain.BookDefinition;
 import pl.dopierala.domain.LibraryUser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -36,6 +38,27 @@ public class Utils {
         }
         return Collections.emptyList();
     }
+
+    public static List<BookDefinition> readBookDefFromJson(String resourceFilePath, StdDeserializer<BookDefinition> deserializer) {
+        List<BookDefinition> bookDefs = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        if (Objects.nonNull(deserializer)) {
+            SimpleModule module = new SimpleModule();
+            module.addDeserializer(BookDefinition.class, deserializer);
+            mapper.registerModule(module);
+        }
+
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(List.class, BookDefinition.class);
+        InputStream userStream = TypeReference.class.getResourceAsStream(resourceFilePath);
+        try {
+            bookDefs = mapper.readValue(userStream, collectionType);
+            return bookDefs;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
 
     private Utils() {
     }

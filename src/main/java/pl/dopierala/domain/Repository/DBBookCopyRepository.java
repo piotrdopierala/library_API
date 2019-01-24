@@ -66,7 +66,13 @@ public class DBBookCopyRepository implements BookCopyRepository {
         bookCopies.forEach((bookCopy) -> em.persist(bookCopy));
     }
 
+    /** Function generates sample books in library
+     *
+     * @deprecated from 23.01.2019 now reading sample data from JSON
+     * @return Collection of generated books
+     */
     @Override
+    @Deprecated
     public Collection<BookCopy> generateSampleBooks() {
         Collection<BookCopy> booksCopiesList = new ArrayList<>();
 
