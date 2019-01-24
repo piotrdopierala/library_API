@@ -32,4 +32,10 @@ public interface BookCopyRepository {
 
     @Transactional
     BookDefinition getBookDefinitionById(Integer id);
+
+    int countBookDefinitions();
+
+    void saveAllBooksDefinitions(List<BookDefinition> bookDefinitions);
+
+    void saveAllBookCopies(List<BookCopy> bookCopies);
 }

@@ -36,11 +36,15 @@ public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefini
             String isbn = node.get("isbn").textValue();
             bookDef.setIsbn(isbn);
         }
-        if(node.has("pageCount")) {
+        if (node.has("pageCount")) {
             Integer pageCount = node.get("pageCount").bigIntegerValue().intValue();
             bookDef.setPageCount(pageCount);
         }
-        //bookDef.setPublishedDate(LocalDate.parse(node.get("publishedDate").textValue(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        if (node.has("publishedDate")) {
+            bookDef.setPublishedDate(LocalDate.parse(node.get("publishedDate").get("$date").textValue().substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+
         if (node.has("thumbnailUrl")) {
             String thumbnailUrl = node.get("thumbnailUrl").textValue();
             bookDef.setThumbnailUrl(thumbnailUrl);
@@ -49,7 +53,7 @@ public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefini
             String shortDescription = node.get("shortDescription").textValue();
             bookDef.setShortDescription(shortDescription);
         }
-        if(node.has("authors")) {
+        if (node.has("authors")) {
             List<Author> authors = new ArrayList<>();
             node.findValues("authors").get(0).forEach(a -> {
                         String[] split = a.asText().split(" ");
@@ -58,7 +62,7 @@ public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefini
                         if (split.length > 1) {
                             String nameString = a.asText();
                             int idxLastSpace = nameString.lastIndexOf(" ");
-                            authors.add(new Author(nameString.substring(0,idxLastSpace),nameString.substring(idxLastSpace+1)));
+                            authors.add(new Author(nameString.substring(0, idxLastSpace), nameString.substring(idxLastSpace + 1)));
                         }
                     }
             );
@@ -66,7 +70,7 @@ public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefini
         }
 
         Collection<String> categories = new HashSet<>();
-        node.findValue("categories").forEach(c->categories.add(c.textValue()));
+        node.findValue("categories").forEach(c -> categories.add(c.textValue()));
         bookDef.setCategories(categories);
 
         return bookDef;

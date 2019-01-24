@@ -3,6 +3,7 @@ package pl.dopierala.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -16,12 +17,13 @@ public class BookDefinition {
     private Integer pageCount;
     private LocalDate publishedDate;
     private String thumbnailUrl;
+    @Size(max=2000)
     private String shortDescription;
+    @ElementCollection
+    @CollectionTable(name="BookCategories")
     private Collection<String> categories;
     @ManyToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Author> authors;
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    private BookGenere genere;
     @OneToMany(mappedBy = "bookDefinition", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonBackReference
     private Collection<BookCopy> copies;
@@ -43,9 +45,6 @@ public class BookDefinition {
         this.authors = authors;
     }
 
-    public void setGenere(BookGenere genere) {
-        this.genere = genere;
-    }
 
     public void setCopies(List<BookCopy> copies) {
         this.copies = copies;
@@ -66,9 +65,6 @@ public class BookDefinition {
         return authors;
     }
 
-    public BookGenere getGenere() {
-        return genere;
-    }
 
     public Collection<BookCopy> getCopies() {
         return copies;

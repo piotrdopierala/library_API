@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class BookCopy {
@@ -15,8 +16,8 @@ public class BookCopy {
     private LocalDateTime dateAddedToLibrary;
     private String physicalStateDescription;
     private boolean isAvailable;
-    private LocalDateTime borowedDate;
-    private LocalDateTime shouldReturnDate;
+    @Transient
+    List<BorrowingHistory> borrowHistory;
 
     public BookCopy(BookDefinition basicData) {
         this.bookDefinition = basicData;
@@ -30,7 +31,7 @@ public class BookCopy {
 
     @Override
     public String toString() {
-        return "BookCopy title:"+this.bookDefinition.getTitle()+", by:"+this.bookDefinition.getAuthors();
+        return "BookCopy title:"+this.bookDefinition.getTitle();
     }
 
     public BookDefinition getBookDefinition() {
@@ -49,30 +50,16 @@ public class BookCopy {
         return isAvailable;
     }
 
-    public LocalDateTime getBorowedDate() {
-        return borowedDate;
-    }
-
-    public LocalDateTime getShouldReturnDate() {
-        return shouldReturnDate;
-    }
-
     public void setPhysicalStateDescription(String physicalStateDescription) {
         this.physicalStateDescription = physicalStateDescription;
     }
 
+    public void setDateAddedToLibrary(LocalDateTime dateAddedToLibrary) {
+        this.dateAddedToLibrary = dateAddedToLibrary;
+    }
+
     public BookCopy setAvailable(boolean available) {
         isAvailable = available;
-        return this;
-    }
-
-    public BookCopy setBorowedDate(LocalDateTime borowedDate) {
-        this.borowedDate = borowedDate;
-        return this;
-    }
-
-    public BookCopy setShouldReturnDate(LocalDateTime shouldReturnDate) {
-        this.shouldReturnDate = shouldReturnDate;
         return this;
     }
 

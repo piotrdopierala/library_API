@@ -13,31 +13,43 @@ import java.util.List;
 @Service
 public class BooksService {
     @Autowired
-    BookCopyRepository bookCopyRepo;
+    BookCopyRepository bookRepo;
 
     public Collection<BookCopy> getAllBookCopies(BookCopyAvailibility availability){
-        Collection<BookCopy> allBooks = bookCopyRepo.getAllBooksCopies(availability);
+        Collection<BookCopy> allBooks = bookRepo.getAllBooksCopies(availability);
         return allBooks;
     }
 
     public BookCopy getBookCopyById(Integer id){
-        return bookCopyRepo.getBookCopyById(id);
+        return bookRepo.getBookCopyById(id);
     }
     public BookDefinition getBookDefinitionById(Integer id){
-        return bookCopyRepo.getBookDefinitionById(id);
+        return bookRepo.getBookDefinitionById(id);
     }
 
     public List<BookDefinition> getAllBookDefinitions(){
-        List<BookDefinition> allBookDefinitions = bookCopyRepo.getAllBooksDefinitions();
+        List<BookDefinition> allBookDefinitions = bookRepo.getAllBooksDefinitions();
         return allBookDefinitions;
     }
 
     public int countCopiesOfBook(BookDefinition bookDefinition, BookCopyAvailibility bookAvailability){
-        return bookCopyRepo.countBookCopies(bookDefinition,bookAvailability);
+        return bookRepo.countBookCopies(bookDefinition,bookAvailability);
     }
 
     public void createSampleBooks(){
-        Collection<BookCopy> exampleBookCopies = bookCopyRepo.generateSampleBooks();
-        bookCopyRepo.saveAllBooks(exampleBookCopies);
+        Collection<BookCopy> exampleBookCopies = bookRepo.generateSampleBooks();
+        bookRepo.saveAllBooks(exampleBookCopies);
+    }
+
+    public int countBookDefinitions() {
+        return bookRepo.countBookDefinitions();
+    }
+
+    public void saveAllBookDefinitions(List<BookDefinition> bookDefinitions) {
+        bookRepo.saveAllBooksDefinitions(bookDefinitions);
+    }
+
+    public void saveAllBookCopies(List<BookCopy> bookCopies) {
+        bookRepo.saveAllBookCopies(bookCopies);
     }
 }
