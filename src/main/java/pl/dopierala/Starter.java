@@ -7,16 +7,13 @@ import pl.dopierala.domain.BookCopy;
 import pl.dopierala.domain.BookDefinition;
 import pl.dopierala.domain.LibraryUser;
 import pl.dopierala.domain.Repository.BookCopyAvailibility;
-import pl.dopierala.domain.UserRepository.UserRepository;
 import pl.dopierala.service.BooksService;
 import pl.dopierala.service.UsersService;
 import pl.dopierala.utils.CustomBookDefinitionDeserializer;
 import pl.dopierala.utils.CustomUserDeserializer;
 import pl.dopierala.utils.Utils;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import static pl.dopierala.utils.Utils.readBookDefFromJson;
@@ -58,7 +55,7 @@ public class Starter implements CommandLineRunner {
 
         //create random book copies if definitions exists and no copies. Save generated values to database
         if (bookDefCount > 0 && bookCopiesCount == 0) {
-            List<BookDefinition> allBookDefinitions = booksService.getAllBookDefinitions();
+            List<BookDefinition> allBookDefinitions = booksService.getAllBookDefinitionsFull();
 
             List<BookCopy> generatedBookCopies = Utils.generateRandomBookCopies(allBookDefinitions);
             Logger.getGlobal().info("Generated " + generatedBookCopies.size() + " book copies.");

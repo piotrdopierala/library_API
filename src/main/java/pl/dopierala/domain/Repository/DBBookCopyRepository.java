@@ -30,7 +30,7 @@ public class DBBookCopyRepository implements BookCopyRepository {
     @Override
     @Transactional
     public Collection<BookCopy> getAllBooksCopies(BookCopyAvailibility availability) {
-        String queryString="";
+        String queryString = "";
         if (Objects.nonNull(availability)) {
             switch (availability) {
                 case ALL:
@@ -54,8 +54,16 @@ public class DBBookCopyRepository implements BookCopyRepository {
 
     @Override
     @Transactional
-    public List<BookDefinition> getAllBooksDefinitions(){
+    public List<BookDefinition> getAllBooksDefinitionsFull() {
         String getAllQuery = "FROM BookDefinition bd LEFT JOIN FETCH bd.copies";
+        TypedQuery<BookDefinition> query = em.createQuery(getAllQuery, BookDefinition.class);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<BookDefinition> getAllBooksDefinitionsLazy() {
+        String getAllQuery = "FROM BookDefinition bd";
         TypedQuery<BookDefinition> query = em.createQuery(getAllQuery, BookDefinition.class);
         return query.getResultList();
     }
@@ -66,10 +74,11 @@ public class DBBookCopyRepository implements BookCopyRepository {
         bookCopies.forEach((bookCopy) -> em.persist(bookCopy));
     }
 
-    /** Function generates sample books in library
+    /**
+     * Function generates sample books in library
      *
-     * @deprecated from 23.01.2019 now reading sample data from JSON
      * @return Collection of generated books
+     * @deprecated from 23.01.2019 now reading sample data from JSON
      */
     @Override
     @Deprecated
@@ -141,34 +150,34 @@ public class DBBookCopyRepository implements BookCopyRepository {
             query = em.createQuery(queryString).setParameter("bookDataToCount", bookDefinitionToCount);
         }
 
-        int singleResult = ((Long)query.getSingleResult()).intValue();
+        int singleResult = ((Long) query.getSingleResult()).intValue();
         return singleResult;
     }
 
     @Override
     @Transactional
-    public void addBookCopy(BookCopy bookCopyToAdd){
+    public void addBookCopy(BookCopy bookCopyToAdd) {
         em.persist(bookCopyToAdd);
     }
 
     @Override
     @Transactional
-    public void addBookDefinition(BookDefinition bookDefinitionToAdd){
+    public void addBookDefinition(BookDefinition bookDefinitionToAdd) {
         em.persist(bookDefinitionToAdd);
     }
 
     @Override
     @Transactional
-    public BookCopy getBookCopyById(Integer id){
+    public BookCopy getBookCopyById(Integer id) {
         BookCopy bookCopy = em.createQuery("FROM BookCopy WHERE id=:id", BookCopy.class).setParameter("id", Long.valueOf(id)).getSingleResult();
         return bookCopy;
     }
 
     @Override
     @Transactional
-    public BookDefinition getBookDefinitionById(Integer id){
-        BookDefinition bookDefinition = em.createQuery("FROM BookDefinition WHERE id=:id", BookDefinition.class).setParameter("id",Long.valueOf(id)).getSingleResult();
-        return  bookDefinition;
+    public BookDefinition getBookDefinitionById(Integer id) {
+        BookDefinition bookDefinition = em.createQuery("FROM BookDefinition WHERE id=:id", BookDefinition.class).setParameter("id", Long.valueOf(id)).getSingleResult();
+        return bookDefinition;
     }
 
     @Override
@@ -180,7 +189,7 @@ public class DBBookCopyRepository implements BookCopyRepository {
     @Override
     @Transactional
     public void saveAllBooksDefinitions(List<BookDefinition> bookDefinitions) {
-        bookDefinitions.forEach(bookDef->em.persist(bookDef));
+        bookDefinitions.forEach(bookDef -> em.persist(bookDef));
     }
 
     @Override

@@ -13,7 +13,10 @@ public interface BookCopyRepository {
     Collection<BookCopy> getAllBooksCopies(BookCopyAvailibility availability);
 
     @Transactional
-    List<BookDefinition> getAllBooksDefinitions();
+    List<BookDefinition> getAllBooksDefinitionsFull();
+
+    @Transactional
+    List<BookDefinition> getAllBooksDefinitionsLazy();
 
     void saveAllBooks(Collection<BookCopy> bookCopies);
 

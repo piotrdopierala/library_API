@@ -34,7 +34,7 @@ public class BookController {
     @RequestMapping(value = "/Books",method = RequestMethod.GET)
     @ResponseBody
     public List<BookDefinition> getBooksDefinitions(){
-        List<BookDefinition> booksDefinitions = bookService.getAllBookDefinitions();
+        List<BookDefinition> booksDefinitions = bookService.getAllBookDefinitionsLazy();
         return booksDefinitions;
     }
 

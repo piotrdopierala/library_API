@@ -27,9 +27,14 @@ public class BooksService {
         return bookRepo.getBookDefinitionById(id);
     }
 
-    public List<BookDefinition> getAllBookDefinitions(){
-        List<BookDefinition> allBookDefinitions = bookRepo.getAllBooksDefinitions();
+    public List<BookDefinition> getAllBookDefinitionsFull(){
+        List<BookDefinition> allBookDefinitions = bookRepo.getAllBooksDefinitionsFull();
         return allBookDefinitions;
+    }
+
+    public List<BookDefinition> getAllBookDefinitionsLazy(){
+        List<BookDefinition> allBookDefLazy = bookRepo.getAllBooksDefinitionsLazy();
+        return allBookDefLazy;
     }
 
     public int countCopiesOfBook(BookDefinition bookDefinition, BookCopyAvailibility bookAvailability){
