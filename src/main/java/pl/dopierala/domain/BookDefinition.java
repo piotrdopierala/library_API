@@ -23,7 +23,7 @@ public class BookDefinition {
     @CollectionTable(name="BookCategories")
     private Collection<String> categories;
     @ManyToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Author> authors;
+    private Set<Author> authors;
     @OneToMany(mappedBy = "bookDefinition", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonBackReference
     private Collection<BookCopy> copies;
@@ -32,7 +32,7 @@ public class BookDefinition {
         if (Objects.nonNull(title)) {
             this.title = title;
         }
-        this.authors = new ArrayList<>();
+        this.authors = new HashSet<>();
         if (author.length > 0) {
             this.authors.addAll(Arrays.asList(author));
         }
@@ -41,7 +41,7 @@ public class BookDefinition {
     public BookDefinition() {
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 
@@ -61,7 +61,7 @@ public class BookDefinition {
         return title;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 

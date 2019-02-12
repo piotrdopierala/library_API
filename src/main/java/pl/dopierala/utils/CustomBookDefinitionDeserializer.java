@@ -11,10 +11,7 @@ import pl.dopierala.domain.BookDefinition;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 
 public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefinition> {
@@ -54,7 +51,7 @@ public class CustomBookDefinitionDeserializer extends StdDeserializer<BookDefini
             bookDef.setShortDescription(shortDescription);
         }
         if (node.has("authors")) {
-            List<Author> authors = new ArrayList<>();
+            Set<Author> authors = new HashSet<>();
             node.findValues("authors").get(0).forEach(a -> {
                         String[] split = a.asText().split(" ");
                         if (split.length == 1)
