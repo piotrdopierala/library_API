@@ -20,6 +20,11 @@ public class BooksService {
         return allBooks;
     }
 
+    public Collection<BookCopy> getBookCopies(Integer id, BookCopyAvailibility availability){
+        Collection<BookCopy> allBookCopies = bookRepo.getBookCopies(id, availability);
+        return allBookCopies;
+    }
+
     public BookCopy getBookCopyById(Integer id){
         return bookRepo.getBookCopyById(id);
     }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.dopierala.domain.BookCopy;
 import pl.dopierala.domain.BookDefinition;
+import pl.dopierala.domain.Repository.BookCopyAvailibility;
 import pl.dopierala.service.BooksService;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -33,6 +35,13 @@ public class BookController {
     public List<BookDefinition> getBooksDefinitions(){
         List<BookDefinition> booksDefinitions = bookService.getAllBookDefinitionsLazy();
         return booksDefinitions;
+    }
+
+    @RequestMapping(value = "/BookCopies/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookCopy> getBooksCopies(@PathVariable("id")Integer id){
+        Collection<BookCopy> allBookCopies = bookService.getBookCopies(id,BookCopyAvailibility.ALL);
+        return allBookCopies;
     }
 
     @RequestMapping(value = "/home")

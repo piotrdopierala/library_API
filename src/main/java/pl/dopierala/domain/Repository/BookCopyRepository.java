@@ -11,6 +11,7 @@ public interface BookCopyRepository {
 
     Collection<BookCopy> getAllBooksCopies();
     Collection<BookCopy> getAllBooksCopies(BookCopyAvailibility availability);
+    Collection<BookCopy> getBookCopies(Integer id, BookCopyAvailibility availability);
 
     @Transactional
     List<BookDefinition> getAllBooksDefinitionsFull();
@@ -41,4 +42,7 @@ public interface BookCopyRepository {
     void saveAllBooksDefinitions(List<BookDefinition> bookDefinitions);
 
     void saveAllBookCopies(List<BookCopy> bookCopies);
+
+
+
 }

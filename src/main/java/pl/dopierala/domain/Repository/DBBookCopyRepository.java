@@ -53,6 +53,31 @@ public class DBBookCopyRepository implements BookCopyRepository {
     }
 
     @Override
+    public Collection<BookCopy> getBookCopies(Integer id, BookCopyAvailibility availability) {
+        String queryString = "";
+        if (Objects.nonNull(availability)) {
+            switch (availability) {
+                case ALL:
+                default:
+                    queryString = "FROM BookCopy b WHERE b.bookDefinition.id=:id";
+                    break;
+                case IS_AVAILABLE:
+                    queryString = "FROM BookCopy WHERE id=:id AND isAvailable=true";
+                    break;
+                case NOT_AVAILABLE_BORROWED:
+                    queryString = "FROM BookCopy WHERE id=:id AND isAvailable=false";
+                    break;
+            }
+        } else {
+            queryString = "FROM BookCopy WHERE id=:id";
+        }
+
+        TypedQuery<BookCopy> query = em.createQuery(queryString, BookCopy.class);
+        query.setParameter("id",id.longValue());
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public List<BookDefinition> getAllBooksDefinitionsFull() {
         String getAllQuery = "FROM BookDefinition bd LEFT JOIN FETCH bd.copies";
